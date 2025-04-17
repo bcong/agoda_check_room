@@ -1,6 +1,5 @@
 import puppeteer, { Page } from 'puppeteer';
 import notifier from 'node-notifier';
-import path from 'path';
 
 type Room = {
     name: string;
@@ -16,7 +15,7 @@ const blockedDomains = [
     'google-analytics', 'googletagmanager', 'doubleclick', 'facebook', 'adservice', 'adsystem'
 ];
 
-const targetRoom = [
+const targetWord = [
     '101뷰 패밀리룸',
     '101 view family room'
 ];
@@ -42,23 +41,23 @@ async function checkRooms(page: Page) {
             });
         });
 
-        const familyRooms = rooms.filter(room =>
+        const targetRooms = rooms.filter(room =>
             room.available &&
-            targetRoom.some(name =>
+            targetWord.some(name =>
                 room.name.toLowerCase().includes(name.toLowerCase())
             ));
 
         console.log(`[${new Date().toLocaleTimeString()}]`);
-        if (familyRooms.length) {
+        if (targetRooms.length) {
             console.log('✅ 예약 가능한 룸:');
-            familyRooms.forEach(room => {
+            targetRooms.forEach(room => {
                 console.log(`- ${room.name}`);
                 console.log(`  ▸ ￦${room.price}`);
             });
 
             notifier.notify({
                 title: '✅ 룸 알림',
-                message: familyRooms[0].name,
+                message: targetRooms[0].name,
                 sound: true,
                 wait: false
             });
