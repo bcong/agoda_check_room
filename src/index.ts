@@ -119,7 +119,6 @@ async function scrapeAgodaRooms() {
     }
 
     process.on('SIGINT', async () => {
-        console.log('\n브라우저 종료 중...');
         await browser.close();
         process.exit();
     });
