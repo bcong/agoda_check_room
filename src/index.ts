@@ -2,6 +2,12 @@ import puppeteer, { Page } from 'puppeteer';
 import notifier from 'node-notifier';
 import path from 'path';
 
+type Room = {
+    name: string;
+    price: string;
+    available: boolean;
+};
+
 const blockedResourceTypes = [
     'image', 'font', 'media'
 ];
@@ -10,11 +16,10 @@ const blockedDomains = [
     'google-analytics', 'googletagmanager', 'doubleclick', 'facebook', 'adservice', 'adsystem'
 ];
 
-type Room = {
-    name: string;
-    price: string;
-    available: boolean;
-};
+const targetRoom = [
+    '101뷰 패밀리룸',
+    '101 view family room'
+];
 
 const url = "https://www.agoda.com/ko-kr/roaders-plus-hotel/hotel/taipei-tw.html?checkIn=2025-10-04&los=4&Rooms=1&Adults=4"
 
@@ -39,27 +44,27 @@ async function checkRooms(page: Page) {
 
         const familyRooms = rooms.filter(room =>
             room.available &&
-            (room.name.toLowerCase().includes('101뷰 패밀리룸') ||
-                room.name.toLowerCase().includes('101 view family room'))
-        );
+            targetRoom.some(name =>
+                room.name.toLowerCase().includes(name.toLowerCase())
+            ));
 
         console.log(`[${new Date().toLocaleTimeString()}]`);
         if (familyRooms.length) {
-            console.log('✅ 예약 가능한 패밀리룸:');
+            console.log('✅ 예약 가능한 룸:');
             familyRooms.forEach(room => {
                 console.log(`- ${room.name}`);
-                console.log(`  ▸ ${room.price}`);
+                console.log(`  ▸ ￦${room.price}`);
             });
 
             notifier.notify({
-                title: '✅ Agoda 패밀리룸 알림',
+                title: '✅ 룸 알림',
                 message: familyRooms[0].name,
                 sound: true,
                 icon: path.join(__dirname, 'icon.png'),
                 wait: false
             });
         } else {
-            console.log('❌ 패밀리룸 없음');
+            console.log('❌ 룸 없음');
         }
 
         console.log('');
