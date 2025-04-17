@@ -60,7 +60,6 @@ async function checkRooms(page: Page) {
                 title: '✅ 룸 알림',
                 message: familyRooms[0].name,
                 sound: true,
-                icon: path.join(__dirname, 'icon.png'),
                 wait: false
             });
         } else {
