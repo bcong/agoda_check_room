@@ -20,7 +20,7 @@ const targetWord = [
     '101 view family room'
 ];
 
-const url = "https://www.agoda.com/ko-kr/roaders-plus-hotel/hotel/taipei-tw.html?checkIn=2025-10-04&los=4&Rooms=1&Adults=4"
+const targetUrl = "https://www.agoda.com/ko-kr/roaders-plus-hotel/hotel/taipei-tw.html?checkIn=2025-10-04&los=4&Rooms=1&Adults=4"
 
 async function checkRooms(page: Page) {
     try {
@@ -85,7 +85,7 @@ async function scrapeAgodaRooms() {
             '--disable-accelerated-2d-canvas',
             '--disable-features=site-per-process',
             '--no-zygote',
-            '--single-process'
+            // '--single-process'
         ]
     });
     const page = await browser.newPage();
@@ -105,7 +105,7 @@ async function scrapeAgodaRooms() {
 
     try {
         await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
-        await page.goto(url, {
+        await page.goto(targetUrl, {
             waitUntil: 'domcontentloaded',
             timeout: 60000
         });
