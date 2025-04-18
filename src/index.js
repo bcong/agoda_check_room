@@ -106,6 +106,7 @@ function scrapeAgodaRooms() {
                 waitUntil: 'domcontentloaded',
                 timeout: 60000
             });
+            console.log(`Target Url: ${targetUrl}`);
             yield checkRooms(page);
         }
         catch (error) {

@@ -112,6 +112,8 @@ async function scrapeAgodaRooms() {
             timeout: 60000
         });
 
+        console.log(`Target Url: ${targetUrl}`)
+
         await checkRooms(page);
     } catch (error) {
         console.error('⚠️ 초기화 오류:', error);
