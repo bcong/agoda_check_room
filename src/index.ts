@@ -67,10 +67,10 @@ async function checkRooms(page: Page) {
 
         console.log('');
 
-        setTimeout(() => checkRooms(page), 5 * 1000);
+        setTimeout(() => checkRooms(page), 3 * 1000);
     } catch (error) {
         console.error('⚠️ 오류 발생:', error);
-        setTimeout(() => checkRooms(page), 5 * 1000);
+        setTimeout(() => checkRooms(page), 3 * 1000);
     }
 }
 
@@ -85,7 +85,9 @@ async function scrapeAgodaRooms() {
             '--disable-accelerated-2d-canvas',
             '--disable-features=site-per-process',
             '--no-zygote',
-            // '--single-process'
+            '--disable-features=IsolateOrigins',
+            '--disable-site-isolation-trials',
+            '--disable-raf-throttling',
         ]
     });
     const page = await browser.newPage();
