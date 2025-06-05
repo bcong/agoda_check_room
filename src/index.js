@@ -63,11 +63,11 @@ function checkRooms(page) {
                 console.log('❌ 룸 없음');
             }
             console.log('');
-            setTimeout(() => checkRooms(page), 3 * 1000);
+            setTimeout(() => checkRooms(page), 10 * 1000);
         }
         catch (error) {
             console.error('⚠️ 오류 발생:', error);
-            setTimeout(() => checkRooms(page), 3 * 1000);
+            setTimeout(() => checkRooms(page), 10 * 1000);
         }
     });
 }
